@@ -1,0 +1,25 @@
+{
+  "name": "lazurde-api-tests",
+  "version": "1.0.0",
+  "description": "This repo contains the API tests for lazurde storefront",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://adil.peter@gitlab.com/adil.peter/lazurde-api-tests.git"
+  },
+  "keywords": [
+    "lazurde"
+  ],
+  "author": "Adil Peter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/adil.peter/lazurde-api-tests/issues"
+  },
+  "homepage": "https://gitlab.com/adil.peter/lazurde-api-tests#readme",
+  "dependencies": {
+    "newman": "^5.3.2"
+  }
+}
