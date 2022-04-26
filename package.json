@@ -1,25 +1,23 @@
 {
-  "name": "lazurde-api-tests",
+  "name": "lazurde-api-test",
   "version": "1.0.0",
-  "description": "This repo contains the API tests for lazurde storefront",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://adil.peter@gitlab.com/adil.peter/lazurde-api-tests.git"
+    "url": "git+https://github.com/shopistan/lazurde-api-tests.git"
   },
-  "keywords": [
-    "lazurde"
-  ],
-  "author": "Adil Peter",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/adil.peter/lazurde-api-tests/issues"
+    "url": "https://github.com/shopistan/lazurde-api-tests/issues"
   },
-  "homepage": "https://gitlab.com/adil.peter/lazurde-api-tests#readme",
+  "homepage": "https://github.com/shopistan/lazurde-api-tests#readme",
   "dependencies": {
+    "html-report-generator": "^0.2.10",
     "newman": "^5.3.2"
   }
 }
