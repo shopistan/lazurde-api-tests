@@ -1,1183 +1,1203 @@
 {
-  "info": {
-    "_postman_id": "3524e65c-b102-4623-bc62-4c2a789db46d",
-    "name": "klondike",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "signup",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "4c314295-f4c1-4ca6-a4cc-23eb410113f4",
-            "exec": [
-              "\r",
-              "pm.test(\"Set Email Address\", function () {\r",
-              "var randomemail = Math.random().toString(36).substring(2);\r",
-              "var emailAddress = \"mian\" +randomemail+\"@gmail.com\"\r",
-              "pm.environment.set(\"emailAddress\", emailAddress);\r",
-              "console.log(emailAddress)\r",
-              "})\r",
-              "pm.test(\"Set User Name\", function () {\r",
-              "var randomUser = Math.random().toString(36).substring(2);\r",
-              "var UserName = \"mian\" +randomUser+ \"bilal\"\r",
-              "pm.environment.set(\"UserName\", UserName);\r",
-              "console.log(UserName)\r",
-              "})\r",
-              "// sign up Status\r",
-              "\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        },
-        {
-          "listen": "prerequest",
-          "script": {
-            "id": "3064f4f5-0966-4de0-b515-4a67e81d282f",
-            "exec": [
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "471d4238-db74-48dc-85d6-0267c38adc82",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "content-type",
-            "value": "{{content-type}}",
-            "type": "text"
-          },
-          {
-            "key": "Origin",
-            "value": "{{origin}}",
-            "type": "text"
-          },
-          {
-            "key": "x-site-context",
-            "value": "{{x-site-context}}",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n\t\"user\": {\r\n\t\t\"name\": {\r\n\t\t\t\"first\": \"shop\",\r\n\t\t\t\"middle\": \"A\",\r\n\t\t\t\"last\": \"dev\"\r\n\t\t},\r\n\t\t\"phone\": [{\r\n\t\t\t\"number\": \"123456789\",\r\n\t\t\t\"countryCode\": \"+1\",\r\n\t\t\t\"extension\": \"1234\",\r\n\t\t\t\"kind\": \"mobile\"\r\n\t\t}],\r\n\t\t\"email\": \"{{emailAddress}}\",\r\n\t\t\"extra\": {\r\n\t    \t\"dob\": \"03-19-1993\"\r\n\t    }\r\n\t},\r\n\t\"provider\": {\r\n\t\t\"username\": \"{{UserName}}\",\r\n\t\t\"password\": \"shopdev123!\"\r\n\t}\r\n}",
-          "options": {
-            "raw": {}
-          }
-        },
-        "url": "https://uat01-apigw.klondike.fabric.zone/api-commerceIdentity/user/local"
-      },
-      "response": []
-    },
-    {
-      "name": "Login",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "4adc68d8-8687-40a5-8404-333a81671c83",
-            "exec": [
-              "pm.test(\"Login\", function () {\r",
-              "    var jsonData = pm.response.json();\r",
-              "    pm.environment.set(\"acc_token\", jsonData.accessToken);\r",
-              "    let acc =  pm.environment.get(\"acc_token\");\r",
-              "    console.log('checkresponse', acc)\r",
-              "   });"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "75f6baf5-800f-485f-8a08-b372a4847a73",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "authority",
-            "value": "{{authority}}",
-            "disabled": true
-          },
-          {
-            "key": "accept",
-            "value": "application/json, text/plain, */*",
-            "disabled": true
-          },
-          {
-            "key": "accept-language",
-            "value": "en-US,en;q=0.9",
-            "disabled": true
-          },
-          {
-            "key": "authorization",
-            "value": "null",
-            "disabled": true
-          },
-          {
-            "key": "content-type",
-            "value": "{{content-type}}"
-          },
-          {
-            "key": "origin",
-            "value": "{{origin}}"
-          },
-          {
-            "key": "referer",
-            "value": "https://dev.klondike.fabric.zone/",
-            "disabled": true
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"",
-            "disabled": true
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0",
-            "disabled": true
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\"",
-            "disabled": true
-          },
-          {
-            "key": "sec-fetch-dest",
-            "value": "empty",
-            "disabled": true
-          },
-          {
-            "key": "sec-fetch-mode",
-            "value": "cors",
-            "disabled": true
-          },
-          {
-            "key": "sec-fetch-site",
-            "value": "same-site",
-            "disabled": true
-          },
-          {
-            "key": "user-agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
-            "disabled": true
-          },
-          {
-            "key": "x-site-context",
-            "value": "{{x-site-context}}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"username\" : \"{UserName}\",\r\n    \"password\" : \"shopdev123!\"\r\n}",
-          "options": {
-            "raw": {}
-          }
-        },
-        "url": "{{baseurl}}/api-commerceIdentity/auth/local/login"
-      },
-      "response": []
-    },
-    {
-      "name": "get categories",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "4254fcf8-c4e6-4913-80f9-439ab8322b71",
-            "exec": [
-              "var jsonData = pm.response.json();\r",
-              "\r",
-              " category = jsonData.data.version[0].components[2].params.ProductList\r",
-              " console.log('category run',category)\r",
-              " let curent\r",
-              "//  if(category && category){\r",
-              "//     for(let i=0; i < category.length; i++){\r",
-              "//      curent = category[i]\r",
-              "//      console.log('current', curent.title)\r",
-              "//      pm.globals.set(\"Category\", curent.title);\r",
-              "//     postman.setNextRequest('Algolia')\r",
-              "//     }\r",
-              "// }\r",
-              "// else{\r",
-              "//    postman.setNextRequest(null)\r",
-              "// }\r",
-              "if(category && category.length>0){\r",
-              "    //   let curent=  data.shift()\r",
-              "     curent = category.shift()\r",
-              "     console.log('current', curent.title)\r",
-              "     pm.environment.set(\"Category\", \"Automotive Engine Oils\")\r",
-              "    //  pm.globals.set(\"Category\", curent.title);\r",
-              "    postman.setNextRequest('Algolia')\r",
-              "    }\r",
-              "let test = pm.environment.get(\"Category\");\r",
-              "\r",
-              "console.log(test)"
-            ],
-            "type": "text/javascript"
-          }
-        },
-        {
-          "listen": "prerequest",
-          "script": {
-            "id": "78f362db-6a05-4511-8285-3688f8e61950",
-            "exec": [
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "1371de54-660d-4787-b33a-25f97f1244b4",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "authority",
-            "value": "uat01-apigw.klondike.fabric.zone"
-          },
-          {
-            "key": "accept",
-            "value": "application/json, text/plain, */*"
-          },
-          {
-            "key": "accept-language",
-            "value": "en-US,en;q=0.9"
-          },
-          {
-            "key": "origin",
-            "value": "https://dev.klondike.fabric.zone"
-          },
-          {
-            "key": "referer",
-            "value": "https://dev.klondike.fabric.zone/"
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0"
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\""
-          },
-          {
-            "key": "sec-fetch-dest",
-            "value": "empty"
-          },
-          {
-            "key": "sec-fetch-mode",
-            "value": "cors"
-          },
-          {
-            "key": "sec-fetch-site",
-            "value": "same-site"
-          },
-          {
-            "key": "user-agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
-          },
-          {
-            "key": "x-api-key",
-            "value": "mZzLKUHkIoai48KUpKRAV6popwDC0ssQ7Ru9LB3o"
-          },
-          {
-            "key": "x-site-context",
-            "value": "{\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\",\"site\": \"https://dev.klondike.fabric.zone\", \"channel\": 12,\"date\":\"Tue Apr 12 2022 14:48:28 GMT+0500 (Pakistan Standard Time)\"}"
-          }
-        ],
-        "url": {
-          "raw": "https://uat01-apigw.klondike.fabric.zone/api-xpm/page/live?url=/categories",
-          "protocol": "https",
-          "host": [
-            "uat01-apigw",
-            "klondike",
-            "fabric",
-            "zone"
-          ],
-          "path": [
-            "api-xpm",
-            "page",
-            "live"
-          ],
-          "query": [
-            {
-              "key": "url",
-              "value": "/categories"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Algolia",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "ea796736-e4f5-4232-9c50-54490c212d85",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}\r",
-              "console.log(\"alg\", jsonData.hits)\r",
-              " pm.environment.set('SKU',jsonData.hits[0].sku);\r",
-              "let check = pm.environment.get('SKU')\r",
-              "console.log(check.replace(/\"/g, ''))"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "0d5bbfb5-0b19-49f0-a284-5ae75a59747d",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "*/*"
-          },
-          {
-            "key": "Accept-Language",
-            "value": "en-US,en;q=0.9"
-          },
-          {
-            "key": "Connection",
-            "value": "keep-alive"
-          },
-          {
-            "key": "Origin",
-            "value": "https://dev.klondike.fabric.zone"
-          },
-          {
-            "key": "Referer",
-            "value": "https://dev.klondike.fabric.zone/"
-          },
-          {
-            "key": "Sec-Fetch-Dest",
-            "value": "empty"
-          },
-          {
-            "key": "Sec-Fetch-Mode",
-            "value": "cors"
-          },
-          {
-            "key": "Sec-Fetch-Site",
-            "value": "cross-site"
-          },
-          {
-            "key": "User-Agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
-          },
-          {
-            "key": "content-type",
-            "value": "application/x-www-form-urlencoded"
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0"
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\""
-          },
-          {
-            "key": "x-algolia-api-key",
-            "value": "406ddfaa655ec2e9d8f3fa337ff11502"
-          },
-          {
-            "key": "x-algolia-application-id",
-            "value": "AWP6XJTOHO"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"query\":\"{{Category}}\",\"restrictSearchableAttributes\":[\"Category\"],\"facetFilters\":[[\"isVariant:false\"]],\"page\":0}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "https://awp6xjtoho-1.algolianet.com/1/indexes/60b63d9e7ce90800085548cf-sandbox-commerce-search-product/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.13.0)%3B%20Browser",
-          "protocol": "https",
-          "host": [
-            "awp6xjtoho-1",
-            "algolianet",
-            "com"
-          ],
-          "path": [
-            "1",
-            "indexes",
-            "60b63d9e7ce90800085548cf-sandbox-commerce-search-product",
-            "query"
-          ],
-          "query": [
-            {
-              "key": "x-algolia-agent",
-              "value": "Algolia%20for%20JavaScript%20(4.13.0)%3B%20Browser"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "get product",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "f6000ebf-46b7-4c3f-b93a-60f5fb3ee9c4",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}\r",
-              "console.log('items',jsonData['items'])\r",
-              "if(pm.response.code === 200){\r",
-              "\r",
-              "// Varible \r",
-              "let groupid = jsonData.product._id\r",
-              "let itemId = jsonData['items'][0].itemId\r",
-              "let sku = jsonData['items'][0].sku\r",
-              "let title = jsonData.product.title\r",
-              "let category = jsonData.product.category\r",
-              "let baseprice = jsonData.product.price.base\r",
-              "\r",
-              "// console.log(\"groupid\",groupid)\r",
-              "console.log(\"itemId\",itemId)\r",
-              "// console.log(\"sku\",sku)\r",
-              "// console.log(\"title\",title)\r",
-              "// console.log(\"category\",category)\r",
-              "// console.log(\"baseprice\",baseprice)\r",
-              "\r",
-              "// Set Enviornment Variable \r",
-              "pm.environment.set(\"groupid\", groupid);\r",
-              "pm.environment.set(\"itemId\", itemId);\r",
-              "pm.environment.set(\"sku\", sku);\r",
-              "pm.environment.set(\"title\", title);\r",
-              "pm.environment.set(\"category\", category);\r",
-              "pm.environment.set(\"baseprice\", baseprice);\r",
-              "}\r",
-              "//check\r",
-              "var test = pm.environment.get(\"itemId\");\r",
-              "console.log('test', test)\r",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "273a2156-d331-4038-aa0d-66974331a7bd",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "authority",
-            "value": "uat01-apigw.klondike.fabric.zone"
-          },
-          {
-            "key": "accept",
-            "value": "application/json, text/plain, */*"
-          },
-          {
-            "key": "accept-language",
-            "value": "en-US,en;q=0.9"
-          },
-          {
-            "key": "origin",
-            "value": "https://dev.klondike.fabric.zone"
-          },
-          {
-            "key": "referer",
-            "value": "https://dev.klondike.fabric.zone/"
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0"
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\""
-          },
-          {
-            "key": "sec-fetch-dest",
-            "value": "empty"
-          },
-          {
-            "key": "sec-fetch-mode",
-            "value": "cors"
-          },
-          {
-            "key": "sec-fetch-site",
-            "value": "same-site"
-          },
-          {
-            "key": "user-agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
-          },
-          {
-            "key": "x-site-context",
-            "value": "{\"date\":\"2022-04-13T05:35:51.948Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
-          }
-        ],
-        "url": "https://uat01-apigw.klondike.fabric.zone/api-item/item/product/{{SKU}}"
-      },
-      "response": []
-    },
-    {
-      "name": "Inventory",
-      "event": [
-        {
-          "listen": "prerequest",
-          "script": {
-            "id": "63e48ff3-dd74-4676-b9b4-66faec0d191c",
-            "exec": [
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        },
-        {
-          "listen": "test",
-          "script": {
-            "id": "ccf199a1-c6d9-49ba-afdc-0af4d42293fa",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "b172efa5-f559-4b69-a697-62b510d3d35b",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "authority",
-            "value": "uat01-apigw.klondike.fabric.zone"
-          },
-          {
-            "key": "accept",
-            "value": "application/json, text/plain, */*"
-          },
-          {
-            "key": "accept-language",
-            "value": "en-US,en;q=0.9"
-          },
-          {
-            "key": "content-type",
-            "value": "application/json"
-          },
-          {
-            "key": "origin",
-            "value": "https://dev.klondike.fabric.zone"
-          },
-          {
-            "key": "referer",
-            "value": "https://dev.klondike.fabric.zone/"
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0"
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\""
-          },
-          {
-            "key": "sec-fetch-dest",
-            "value": "empty"
-          },
-          {
-            "key": "sec-fetch-mode",
-            "value": "cors"
-          },
-          {
-            "key": "sec-fetch-site",
-            "value": "same-site"
-          },
-          {
-            "key": "user-agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
-          },
-          {
-            "key": "x-site-context",
-            "value": "{\"date\":\"2022-04-13T05:35:51.948Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"items\":[{\"itemId\":{{itemId}},\"quantity\":1}],\"channelId\":\"12\"}",
-          "options": {
-            "raw": {}
-          }
-        },
-        "url": "https://uat01-apigw.klondike.fabric.zone/api-inventory/inventory"
-      },
-      "response": []
-    },
-    {
-      "name": "Add to Cart",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "053b77ce-30c8-4350-929d-b3e8cf05b661",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}\r",
-              "\r",
-              "// let cartId = jsonData.cartId\r",
-              "\r",
-              "pm.environment.set(\"cartId\",jsonData.userId);\r",
-              "console.log(jsonData)"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "02f720a7-b89f-4e56-8f48-4231ff39201a",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "authority",
-            "value": "uat01-apigw.klondike.fabric.zone"
-          },
-          {
-            "key": "accept",
-            "value": "application/json, text/plain, */*"
-          },
-          {
-            "key": "accept-language",
-            "value": "en-US,en;q=0.9"
-          },
-          {
-            "key": "content-type",
-            "value": "application/json"
-          },
-          {
-            "key": "origin",
-            "value": "https://dev.klondike.fabric.zone"
-          },
-          {
-            "key": "referer",
-            "value": "https://dev.klondike.fabric.zone/"
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0"
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\""
-          },
-          {
-            "key": "sec-fetch-dest",
-            "value": "empty"
-          },
-          {
-            "key": "sec-fetch-mode",
-            "value": "cors"
-          },
-          {
-            "key": "sec-fetch-site",
-            "value": "same-site"
-          },
-          {
-            "key": "user-agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
-          },
-          {
-            "key": "x-site-context",
-            "value": "{\"date\":\"2022-04-13T05:35:51.948Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"cartId\":null,\"items\":[{\"extra\":{},\"group\":[\"61711b7efcc981372229c3f0\"],\"itemId\":{{itemId}},\"sku\":\"{{sku}}\",\"quantity\":1,\"price\":{\"base\":{{baseprice}},\"currency\":\"USD\",\"sale\":false,\"discount\":{\"price\":0}},\"size\":\"Tube: 397 G / 14 OZ\"}],\"registeredUser\":true,\"userAuthToken\":\"{{acc_token}}\"}",
-          "options": {
-            "raw": {}
-          }
-        },
-        "url": "https://uat01-apigw.klondike.fabric.zone/api-cart/cart/item"
-      },
-      "response": []
-    },
-    {
-      "name": "Promo Validation",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "fdb07cf1-45d2-461b-873c-236bce2f85df",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "29c66672-8a6f-42be-9777-a9bd9d20db61",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "x-site-context",
-            "value": "{{x-site-context}}",
-            "type": "text"
-          },
-          {
-            "key": "Content-Type",
-            "value": "{{content-type}}",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"isLoggedIn\": false,\r\n  \"userId\": \"{{groupid}}\",\r\n  \"promoCodes\": [\r\n    \"abid343\"\r\n  ],\r\n  \"items\": [\r\n    {\r\n      \"lineItemId\": 1,\r\n      \"sku\": \"{{sku}}\",\r\n      \"itemId\": {{itemId}},\r\n      \"group\": [\r\n        \"{{groupid}}\"\r\n      ],\r\n      \"quantity\": 1,\r\n      \"price\": {\r\n        \"base\": {{baseprice}},\r\n        \"sale\": 0,\r\n        \"currency\": \"USD\"\r\n      }\r\n    }\r\n  ]\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": "{{baseurl}}/api-price/promo/validate"
-      },
-      "response": []
-    },
-    {
-      "name": "apply-promo",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "8606119d-08ee-437d-a479-03b64395d5bb",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "0e9145e3-20c6-44ee-aa6c-8329ef155afe",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "PATCH",
-        "header": [
-          {
-            "key": "x-site-context",
-            "value": "{{x-site-context}}",
-            "type": "text"
-          },
-          {
-            "key": "Content-Type",
-            "value": "{{content-type}}",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"cartId\": \"6257f5a1c1810c0009639f0b\",\r\n    \"promoName\": \"abid343\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseurl}}/api-cart/cart/apply-promo",
-          "host": [
-            "{{baseurl}}"
-          ],
-          "path": [
-            "api-cart",
-            "cart",
-            "apply-promo"
-          ],
-          "query": [
-            {
-              "key": "",
-              "value": "",
-              "type": "text",
-              "disabled": true
-            },
-            {
-              "key": "",
-              "value": "",
-              "type": "text",
-              "disabled": true
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Remove Promo",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "18ba8a6e-961a-4da3-afe4-87c7b427670b",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "844f9898-e4f6-46bf-a980-325570cb2f03",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "PATCH",
-        "header": [
-          {
-            "key": "x-site-context",
-            "value": "{{x-site-context}}",
-            "type": "text"
-          },
-          {
-            "key": "Content-Type",
-            "value": "{{content-type}}",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"cartId\": \"6257f5a1c1810c0009639f0b\",\r\n    \"promoId\": \"620a2e16a7f8c80009719951\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": "{{baseurl}}/api-cart/cart/remove-promo"
-      },
-      "response": []
-    },
-    {
-      "name": "Get Cart items",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "621898f6-d12c-4c95-bd57-d617ae16a68c",
-            "exec": [
-              "let jsonData = pm.response.json();\r",
-              "if (jsonData.status === \"error\") {\r",
-              "    console.error(`API returned error: \"${jsonData.message}\"`);\r",
-              "    postman.setNextRequest(null);\r",
-              "    pm.test(\"Status code should not be 200 for error\", function () {\r",
-              "        pm.response.to.not.have.status(200);\r",
-              "    });\r",
-              "    return; // End execution\r",
-              "} else {\r",
-              "    pm.test(\"Status code is 200\", function () {\r",
-              "        pm.response.to.have.status(200);\r",
-              "    });\r",
-              "}\r",
-              "console.log('jsonData', jsonData)"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "e4000fa7-c8a3-42f6-aad8-ff7f75c8e478",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "authority",
-            "value": "uat01-apigw.klondike.fabric.zone"
-          },
-          {
-            "key": "accept",
-            "value": "application/json, text/plain, */*"
-          },
-          {
-            "key": "accept-language",
-            "value": "en-US,en;q=0.9"
-          },
-          {
-            "key": "origin",
-            "value": "https://dev.klondike.fabric.zone"
-          },
-          {
-            "key": "referer",
-            "value": "https://dev.klondike.fabric.zone/"
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0"
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\""
-          },
-          {
-            "key": "sec-fetch-dest",
-            "value": "empty"
-          },
-          {
-            "key": "sec-fetch-mode",
-            "value": "cors"
-          },
-          {
-            "key": "sec-fetch-site",
-            "value": "same-site"
-          },
-          {
-            "key": "user-agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
-          },
-          {
-            "key": "x-site-context",
-            "value": "{\"date\":\"2022-04-18T07:18:59.062Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
-          }
-        ],
-        "url": {
-          "raw": "https://uat01-apigw.klondike.fabric.zone/api-cart/cart?userAuthToken={{acc_token}}",
-          "protocol": "https",
-          "host": [
-            "uat01-apigw",
-            "klondike",
-            "fabric",
-            "zone"
-          ],
-          "path": [
-            "api-cart",
-            "cart"
-          ],
-          "query": [
-            {
-              "key": "userAuthToken",
-              "value": "{{acc_token}}"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Shipping Address",
-      "_postman_id": "c626fc20-13a3-4226-9aca-38e08aac9ed0",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "authority",
-            "value": "uat01-apigw.klondike.fabric.zone"
-          },
-          {
-            "key": "accept",
-            "value": "application/json, text/plain, */*"
-          },
-          {
-            "key": "accept-language",
-            "value": "en-US,en;q=0.9"
-          },
-          {
-            "key": "content-type",
-            "value": "application/json"
-          },
-          {
-            "key": "origin",
-            "value": "https://dev.klondike.fabric.zone"
-          },
-          {
-            "key": "referer",
-            "value": "https://dev.klondike.fabric.zone/"
-          },
-          {
-            "key": "sec-ch-ua",
-            "value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
-          },
-          {
-            "key": "sec-ch-ua-mobile",
-            "value": "?0"
-          },
-          {
-            "key": "sec-ch-ua-platform",
-            "value": "\"Windows\""
-          },
-          {
-            "key": "sec-fetch-dest",
-            "value": "empty"
-          },
-          {
-            "key": "sec-fetch-mode",
-            "value": "cors"
-          },
-          {
-            "key": "sec-fetch-site",
-            "value": "same-site"
-          },
-          {
-            "key": "user-agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
-          },
-          {
-            "key": "x-site-context",
-            "value": "{\"date\":\"2022-04-18T07:18:59.062Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"address\":{\"street1\":\"1510 Wall Street NW \",\"city\":\"Winnipeg\",\"state\":\"MB\",\"country\":\"Canada\",\"zipCode\":\"R3G 2T3\",\"region\":\"Winnipeg\",\"kind\":\"shipping\",\"name\":{\"first\":\"rohan\",\"last\":\"amir\"},\"email\":\"rohan.amir@shopdev.co\",\"phone\":{\"number\":\"844-883-4645\",\"kind\":\"Mobile\"}},\"shipToType\":\"SHIP_TO_ADDRESS\",\"shipMethod\":{\"shipMethodId\":10009,\"shipmentCarrier\":\"KLONDIKE - Delivery Shipping \",\"shipmentMethod\":\"Delivery shipping for KLONDIKE\",\"cost\":{\"currency\":\"USD\",\"amount\":0}},\"taxCode\":\"FR020000\"}",
-          "options": {
-            "raw": {}
-          }
-        },
-        "url": "{{baseurl}}/api-cart/ship-to/cart/622087718399750009cabbf7"
-      },
-      "response": []
-    }
-  ]
+	"info": {
+		"_postman_id": "3524e65c-b102-4623-bc62-4c2a789db46d",
+		"name": "klondike",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Set Email Address\", function () {\r",
+							"var randomemail = Math.random().toString(36).substring(2);\r",
+							"var emailAddress = \"mian\" +randomemail+\"@gmail.com\"\r",
+							"pm.environment.set(\"emailAddress\", emailAddress);\r",
+							"console.log(emailAddress)\r",
+							"})\r",
+							"pm.test(\"Set User Name\", function () {\r",
+							"var randomUser = Math.random().toString(36).substring(2);\r",
+							"var UserName = \"mian\" +randomUser+ \"bilal\"\r",
+							"pm.environment.set(\"UserName\", UserName);\r",
+							"console.log(UserName)\r",
+							"})\r",
+							"// sign up Status\r",
+							"\r",
+							"// console.log(pm.response.code)\r",
+							"//     pm.test(\"Status code is 200\", function () {\r",
+							"//         pm.response.to.have.status(200);\r",
+							"//     });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "{{content-type}}",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "{{origin}}",
+						"type": "text"
+					},
+					{
+						"key": "x-site-context",
+						"value": "{{x-site-context}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"user\": {\r\n\t\t\"name\": {\r\n\t\t\t\"first\": \"shop\",\r\n\t\t\t\"middle\": \"A\",\r\n\t\t\t\"last\": \"dev\"\r\n\t\t},\r\n\t\t\"phone\": [{\r\n\t\t\t\"number\": \"123456789\",\r\n\t\t\t\"countryCode\": \"+1\",\r\n\t\t\t\"extension\": \"1234\",\r\n\t\t\t\"kind\": \"mobile\"\r\n\t\t}],\r\n\t\t\"email\": \"{{emailAddress}}\",\r\n\t\t\"extra\": {\r\n\t    \t\"dob\": \"03-19-1993\"\r\n\t    }\r\n\t},\r\n\t\"provider\": {\r\n\t\t\"username\": \"{{UserName}}\",\r\n\t\t\"password\": \"shopdev123!\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "https://uat01-apigw.klondike.fabric.zone/api-commerceIdentity/user/local",
+					"protocol": "https",
+					"host": [
+						"uat01-apigw",
+						"klondike",
+						"fabric",
+						"zone"
+					],
+					"path": [
+						"api-commerceIdentity",
+						"user",
+						"local"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"acc_token\", jsonData.accessToken);\r",
+							"    let acc =  pm.environment.get(\"acc_token\");\r",
+							"    console.log('checkresponse', acc)\r",
+							"   });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "{{authority}}",
+						"disabled": true
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*",
+						"disabled": true
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9",
+						"disabled": true
+					},
+					{
+						"key": "authorization",
+						"value": "null",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "{{content-type}}"
+					},
+					{
+						"key": "origin",
+						"value": "{{origin}}"
+					},
+					{
+						"key": "referer",
+						"value": "https://dev.klondike.fabric.zone/",
+						"disabled": true
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"",
+						"disabled": true
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0",
+						"disabled": true
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\"",
+						"disabled": true
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty",
+						"disabled": true
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors",
+						"disabled": true
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site",
+						"disabled": true
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
+						"disabled": true
+					},
+					{
+						"key": "x-site-context",
+						"value": "{{x-site-context}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"{UserName}\",\r\n    \"password\" : \"shopdev123!\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseurl}}/api-commerceIdentity/auth/local/login",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api-commerceIdentity",
+						"auth",
+						"local",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							" category = jsonData.data.version[0].components[2].params.ProductList\r",
+							" console.log('category run',category)\r",
+							" let curent\r",
+							"//  if(category && category){\r",
+							"//     for(let i=0; i < category.length; i++){\r",
+							"//      curent = category[i]\r",
+							"//      console.log('current', curent.title)\r",
+							"//      pm.globals.set(\"Category\", curent.title);\r",
+							"//     postman.setNextRequest('Algolia')\r",
+							"//     }\r",
+							"// }\r",
+							"// else{\r",
+							"//    postman.setNextRequest(null)\r",
+							"// }\r",
+							"if(category && category.length>0){\r",
+							"    //   let curent=  data.shift()\r",
+							"     curent = category.shift()\r",
+							"     console.log('current', curent.title)\r",
+							"     pm.environment.set(\"Category\", \"Automotive Engine Oils\")\r",
+							"    //  pm.globals.set(\"Category\", curent.title);\r",
+							"    postman.setNextRequest('Algolia')\r",
+							"    }\r",
+							"let test = pm.environment.get(\"Category\");\r",
+							"\r",
+							"console.log(test)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "uat01-apigw.klondike.fabric.zone"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "origin",
+						"value": "https://dev.klondike.fabric.zone"
+					},
+					{
+						"key": "referer",
+						"value": "https://dev.klondike.fabric.zone/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
+					},
+					{
+						"key": "x-api-key",
+						"value": "mZzLKUHkIoai48KUpKRAV6popwDC0ssQ7Ru9LB3o"
+					},
+					{
+						"key": "x-site-context",
+						"value": "{\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\",\"site\": \"https://dev.klondike.fabric.zone\", \"channel\": 12,\"date\":\"Tue Apr 12 2022 14:48:28 GMT+0500 (Pakistan Standard Time)\"}"
+					}
+				],
+				"url": {
+					"raw": "https://uat01-apigw.klondike.fabric.zone/api-xpm/page/live?url=/categories",
+					"protocol": "https",
+					"host": [
+						"uat01-apigw",
+						"klondike",
+						"fabric",
+						"zone"
+					],
+					"path": [
+						"api-xpm",
+						"page",
+						"live"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "/categories"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Algolia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}\r",
+							"console.log(\"alg\", jsonData.hits)\r",
+							" pm.environment.set('SKU',jsonData.hits[0].sku);\r",
+							"let check = pm.environment.get('SKU')\r",
+							"console.log(check.replace(/\"/g, ''))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Origin",
+						"value": "https://dev.klondike.fabric.zone"
+					},
+					{
+						"key": "Referer",
+						"value": "https://dev.klondike.fabric.zone/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "cross-site"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
+					},
+					{
+						"key": "content-type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "x-algolia-api-key",
+						"value": "406ddfaa655ec2e9d8f3fa337ff11502"
+					},
+					{
+						"key": "x-algolia-application-id",
+						"value": "AWP6XJTOHO"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"query\":\"{{Category}}\",\"restrictSearchableAttributes\":[\"Category\"],\"facetFilters\":[[\"isVariant:false\"]],\"page\":0}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://awp6xjtoho-1.algolianet.com/1/indexes/60b63d9e7ce90800085548cf-sandbox-commerce-search-product/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.13.0)%3B%20Browser",
+					"protocol": "https",
+					"host": [
+						"awp6xjtoho-1",
+						"algolianet",
+						"com"
+					],
+					"path": [
+						"1",
+						"indexes",
+						"60b63d9e7ce90800085548cf-sandbox-commerce-search-product",
+						"query"
+					],
+					"query": [
+						{
+							"key": "x-algolia-agent",
+							"value": "Algolia%20for%20JavaScript%20(4.13.0)%3B%20Browser"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}\r",
+							"console.log('items',jsonData['items'])\r",
+							"if(pm.response.code === 200){\r",
+							"\r",
+							"// Varible \r",
+							"let groupid = jsonData.product._id\r",
+							"let itemId = jsonData['items'][0].itemId\r",
+							"let sku = jsonData['items'][0].sku\r",
+							"let title = jsonData.product.title\r",
+							"let category = jsonData.product.category\r",
+							"let baseprice = jsonData.product.price.base\r",
+							"\r",
+							"// console.log(\"groupid\",groupid)\r",
+							"console.log(\"itemId\",itemId)\r",
+							"// console.log(\"sku\",sku)\r",
+							"// console.log(\"title\",title)\r",
+							"// console.log(\"category\",category)\r",
+							"// console.log(\"baseprice\",baseprice)\r",
+							"\r",
+							"// Set Enviornment Variable \r",
+							"pm.environment.set(\"groupid\", groupid);\r",
+							"pm.environment.set(\"itemId\", itemId);\r",
+							"pm.environment.set(\"sku\", sku);\r",
+							"pm.environment.set(\"title\", title);\r",
+							"pm.environment.set(\"category\", category);\r",
+							"pm.environment.set(\"baseprice\", baseprice);\r",
+							"}\r",
+							"//check\r",
+							"var test = pm.environment.get(\"itemId\");\r",
+							"console.log('test', test)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "uat01-apigw.klondike.fabric.zone"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "origin",
+						"value": "https://dev.klondike.fabric.zone"
+					},
+					{
+						"key": "referer",
+						"value": "https://dev.klondike.fabric.zone/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
+					},
+					{
+						"key": "x-site-context",
+						"value": "{\"date\":\"2022-04-13T05:35:51.948Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
+					}
+				],
+				"url": {
+					"raw": "https://uat01-apigw.klondike.fabric.zone/api-item/item/product/{{SKU}}",
+					"protocol": "https",
+					"host": [
+						"uat01-apigw",
+						"klondike",
+						"fabric",
+						"zone"
+					],
+					"path": [
+						"api-item",
+						"item",
+						"product",
+						"{{SKU}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inventory",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "uat01-apigw.klondike.fabric.zone"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://dev.klondike.fabric.zone"
+					},
+					{
+						"key": "referer",
+						"value": "https://dev.klondike.fabric.zone/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
+					},
+					{
+						"key": "x-site-context",
+						"value": "{\"date\":\"2022-04-13T05:35:51.948Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"items\":[{\"itemId\":{{itemId}},\"quantity\":1}],\"channelId\":\"12\"}"
+				},
+				"url": {
+					"raw": "https://uat01-apigw.klondike.fabric.zone/api-inventory/inventory",
+					"protocol": "https",
+					"host": [
+						"uat01-apigw",
+						"klondike",
+						"fabric",
+						"zone"
+					],
+					"path": [
+						"api-inventory",
+						"inventory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add to Cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"// let cartId = jsonData.cartId\r",
+							"\r",
+							"pm.environment.set(\"cartId\",jsonData.userId);\r",
+							"console.log(jsonData)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "uat01-apigw.klondike.fabric.zone"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://dev.klondike.fabric.zone"
+					},
+					{
+						"key": "referer",
+						"value": "https://dev.klondike.fabric.zone/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"
+					},
+					{
+						"key": "x-site-context",
+						"value": "{\"date\":\"2022-04-13T05:35:51.948Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"cartId\":null,\"items\":[{\"extra\":{},\"group\":[\"61711b7efcc981372229c3f0\"],\"itemId\":{{itemId}},\"sku\":\"{{sku}}\",\"quantity\":1,\"price\":{\"base\":{{baseprice}},\"currency\":\"USD\",\"sale\":false,\"discount\":{\"price\":0}},\"size\":\"Tube: 397 G / 14 OZ\"}],\"registeredUser\":true,\"userAuthToken\":\"{{acc_token}}\"}"
+				},
+				"url": {
+					"raw": "https://uat01-apigw.klondike.fabric.zone/api-cart/cart/item",
+					"protocol": "https",
+					"host": [
+						"uat01-apigw",
+						"klondike",
+						"fabric",
+						"zone"
+					],
+					"path": [
+						"api-cart",
+						"cart",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Promo Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-site-context",
+						"value": "{{x-site-context}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{content-type}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"isLoggedIn\": false,\r\n  \"userId\": \"{{groupid}}\",\r\n  \"promoCodes\": [\r\n    \"abid343\"\r\n  ],\r\n  \"items\": [\r\n    {\r\n      \"lineItemId\": 1,\r\n      \"sku\": \"{{sku}}\",\r\n      \"itemId\": {{itemId}},\r\n      \"group\": [\r\n        \"{{groupid}}\"\r\n      ],\r\n      \"quantity\": 1,\r\n      \"price\": {\r\n        \"base\": {{baseprice}},\r\n        \"sale\": 0,\r\n        \"currency\": \"USD\"\r\n      }\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api-price/promo/validate",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api-price",
+						"promo",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apply-promo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-site-context",
+						"value": "{{x-site-context}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{content-type}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cartId\": \"6257f5a1c1810c0009639f0b\",\r\n    \"promoName\": \"abid343\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api-cart/cart/apply-promo",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api-cart",
+						"cart",
+						"apply-promo"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Promo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-site-context",
+						"value": "{{x-site-context}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{content-type}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cartId\": \"6257f5a1c1810c0009639f0b\",\r\n    \"promoId\": \"620a2e16a7f8c80009719951\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api-cart/cart/remove-promo",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api-cart",
+						"cart",
+						"remove-promo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cart items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.error(`API returned error: \"${jsonData.message}\"`);\r",
+							"    postman.setNextRequest(null);\r",
+							"    pm.test(\"Status code should not be 200 for error\", function () {\r",
+							"        pm.response.to.not.have.status(200);\r",
+							"    });\r",
+							"    return; // End execution\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}\r",
+							"console.log('jsonData', jsonData)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "uat01-apigw.klondike.fabric.zone"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "origin",
+						"value": "https://dev.klondike.fabric.zone"
+					},
+					{
+						"key": "referer",
+						"value": "https://dev.klondike.fabric.zone/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
+					},
+					{
+						"key": "x-site-context",
+						"value": "{\"date\":\"2022-04-18T07:18:59.062Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
+					}
+				],
+				"url": {
+					"raw": "https://uat01-apigw.klondike.fabric.zone/api-cart/cart?userAuthToken={{acc_token}}",
+					"protocol": "https",
+					"host": [
+						"uat01-apigw",
+						"klondike",
+						"fabric",
+						"zone"
+					],
+					"path": [
+						"api-cart",
+						"cart"
+					],
+					"query": [
+						{
+							"key": "userAuthToken",
+							"value": "{{acc_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shipping Address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "uat01-apigw.klondike.fabric.zone"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://dev.klondike.fabric.zone"
+					},
+					{
+						"key": "referer",
+						"value": "https://dev.klondike.fabric.zone/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
+					},
+					{
+						"key": "x-site-context",
+						"value": "{\"date\":\"2022-04-18T07:18:59.062Z\",\"channel\":12,\"account\":\"60b63d9e7ce90800085548cf\",\"stage\":\"sandbox\"}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"address\":{\"street1\":\"1510 Wall Street NW \",\"city\":\"Winnipeg\",\"state\":\"MB\",\"country\":\"Canada\",\"zipCode\":\"R3G 2T3\",\"region\":\"Winnipeg\",\"kind\":\"shipping\",\"name\":{\"first\":\"rohan\",\"last\":\"amir\"},\"email\":\"rohan.amir@shopdev.co\",\"phone\":{\"number\":\"844-883-4645\",\"kind\":\"Mobile\"}},\"shipToType\":\"SHIP_TO_ADDRESS\",\"shipMethod\":{\"shipMethodId\":10009,\"shipmentCarrier\":\"KLONDIKE - Delivery Shipping \",\"shipmentMethod\":\"Delivery shipping for KLONDIKE\",\"cost\":{\"currency\":\"USD\",\"amount\":0}},\"taxCode\":\"FR020000\"}"
+				},
+				"url": {
+					"raw": "{{baseurl}}/api-cart/ship-to/cart/622087718399750009cabbf7",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api-cart",
+						"ship-to",
+						"cart",
+						"622087718399750009cabbf7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
