@@ -1,0 +1,1317 @@
+{
+	"info": {
+		"_postman_id": "7189414f-7d90-4bdd-a565-68d06a55328b",
+		"name": "Lazurde API tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6312072"
+	},
+	"item": [
+		{
+			"name": "Home page",
+			"item": [
+				{
+					"name": "Home page",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData.status).to.eql(200);",
+									"    pm.expect(jsonData.status_code).to.eql(200);",
+									"    pm.expect(jsonData.statusCode).to.eql(200);",
+									"});",
+									"pm.test(\"Page is Active\",function(){",
+									"    jsonData.data.page.isActive;",
+									"})",
+									"pm.test(\"Contains the components\",function(){",
+									"   jsonData.data.version[0].components.length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{\"account\":\"61a510fa37bb640009acf55e\",\"stage\":\"sandbox\",\"channel\":\"12\",\"domain\":\"https://uat01-apigw.lazurdesandbox.fabric.zone\",\"date\":\"2022-05-24T09:26:26.581Z\",\"site\":\"https://dev-fabric-lazurde.vercel.app\"}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-xpm/v2/page/live?channel={{channel}}&url=/home",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-xpm",
+								"v2",
+								"page",
+								"live"
+							],
+							"query": [
+								{
+									"key": "channel",
+									"value": "{{channel}}"
+								},
+								{
+									"key": "url",
+									"value": "/home"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Global component",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Contains the components\",function(){",
+									"   jsonData.length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{\"account\":\"61a510fa37bb640009acf55e\",\"stage\":\"sandbox\",\"channel\":\"12\",\"domain\":\"https://uat01-apigw.lazurdesandbox.fabric.zone\",\"date\":\"2022-05-24T09:24:46.120Z\",\"site\":\"https://dev-fabric-lazurde.vercel.app\"}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://uat01-apigw.lazurdesandbox.fabric.zone/api-xpm/global-component/live",
+							"protocol": "https",
+							"host": [
+								"uat01-apigw",
+								"lazurdesandbox",
+								"fabric",
+								"zone"
+							],
+							"path": [
+								"api-xpm",
+								"global-component",
+								"live"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-site-context",
+								"value": "{\"stage\":\"sandbox\",\"account\":\"61a510fa37bb640009acf55e\",\"date\":\"2022-01-20T21:57:21.103Z\",\"channel\":12,\"site\": \"local\"}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"test@fabric.inc\",\n\t\"password\" : \"test1234\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api-commerceIdentity/auth/local/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-commerceIdentity",
+								"auth",
+								"local",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Listing Page",
+			"item": [
+				{
+					"name": "Algolia for fetching products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"sku\", jsonData.hits[10].sku);",
+									"pm.collectionVariables.set(\"itemId\", jsonData.hits[10].itemId);",
+									"pm.collectionVariables.set(\"orderPrice\", jsonData.hits[0]['Order Price']);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Contains the products\",function(){",
+									"  jsonData.hits.length>0",
+									"  jsonData.nbHits>1",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"\",\n    \"page\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://M9D8QKIXCI-dsn.algolia.net/1/indexes/{{account}}-sandbox-commerce-search-product/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.12.2)%3B%20Browser&x-algolia-api-key={{x-algolia-api-key}}&x-algolia-application-id={{x-algolia-application-id}}",
+							"protocol": "https",
+							"host": [
+								"M9D8QKIXCI-dsn",
+								"algolia",
+								"net"
+							],
+							"path": [
+								"1",
+								"indexes",
+								"{{account}}-sandbox-commerce-search-product",
+								"query"
+							],
+							"query": [
+								{
+									"key": "x-algolia-agent",
+									"value": "Algolia%20for%20JavaScript%20(4.12.2)%3B%20Browser"
+								},
+								{
+									"key": "x-algolia-api-key",
+									"value": "{{x-algolia-api-key}}"
+								},
+								{
+									"key": "x-algolia-application-id",
+									"value": "{{x-algolia-application-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Description Page",
+			"item": [
+				{
+					"name": "Get Product by SKU",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has products information\", function () {",
+									"    jsonData.products.length>0",
+									"});",
+									"pm.test(\"Has products attributes\", function () {",
+									"    jsonData.products[0].attributes.length>0",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}"
+							}
+						],
+						"url": {
+							"raw": "{{copilot-domain}}/api-product/v1/product?skus=[\"{{sku}}\"]",
+							"host": [
+								"{{copilot-domain}}"
+							],
+							"path": [
+								"api-product",
+								"v1",
+								"product"
+							],
+							"query": [
+								{
+									"key": "skus",
+									"value": "[\"{{sku}}\"]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by ItemId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has product information\", function () {",
+									"    jsonData.products.length>0",
+									"});",
+									"pm.test(\"Has category\", function () {",
+									"    jsonData.products[0].categories.length>0",
+									"});",
+									"pm.test(\"Has breadcrumbs\", function () {",
+									"    jsonData.products[0].categories[0].breadcrumbs.length>0",
+									"});",
+									"pm.test(\"Has attributes\", function () {",
+									"    jsonData.products[0].attributes[0].length>0",
+									"});",
+									"pm.test(\"Has variants\", function () {",
+									"    console.log(jsonData.products[0].variants)",
+									"    // jsonData.products[0].variants[0].length>0",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{copilot-domain}}/api-product/v1/product?itemIds=[{{itemId}}]",
+							"host": [
+								"{{copilot-domain}}"
+							],
+							"path": [
+								"api-product",
+								"v1",
+								"product"
+							],
+							"query": [
+								{
+									"key": "itemIds",
+									"value": "[{{itemId}}]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get price by SKU",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has price information\", function () {",
+									"    jsonData[0].length>0",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{offers-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "tenant-key",
+								"value": "{{tenant-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"priceList\": [\n        100000\n    ],\n    \"itemId\": [\n        {{itemId}}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rtpe-domain}}/price/get-by-sku",
+							"host": [
+								"{{rtpe-domain}}"
+							],
+							"path": [
+								"price",
+								"get-by-sku"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"cartId\", jsonData.cartId);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has item information\", function () {",
+									"    jsonData.items.length>0",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{cart-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\": null,\n    \"items\": [\n        {\n            \"sku\": \"{{sku}}\",\n            \"itemId\": \"{{itemId}}\",\n            \"quantity\": 1,\n            \"priceListId\": \"100000\",\n            \"price\": {\n                \"currency\": \"USD\",\n                \"amount\": \"{{orderPrice}}\",\n                \"discount\": {\n                    \"discountAmount\": 0\n                }\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cart-domain}}/v2/carts/items",
+							"host": [
+								"{{cart-domain}}"
+							],
+							"path": [
+								"v2",
+								"carts",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inventory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has inventory information\", function () {",
+									"    jsonData.inventory[0].length>0",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}"
+							}
+						],
+						"url": {
+							"raw": "{{inventory-domain}}/inventory?skus=skus=[\"{{sku}}\"]",
+							"host": [
+								"{{inventory-domain}}"
+							],
+							"path": [
+								"inventory"
+							],
+							"query": [
+								{
+									"key": "skus",
+									"value": "skus=[\"{{sku}}\"]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add to wishlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"itemId\": \"{{itemId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api-cart/wishlist/user",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-cart",
+								"wishlist",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove from wishlist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-cart/wishlist/user/item/{{itemId}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-cart",
+								"wishlist",
+								"user",
+								"item",
+								"{{itemId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart page",
+			"item": [
+				{
+					"name": "Get wishlist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-cart/wishlist/user",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-cart",
+								"wishlist",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cart information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"lineItemId\", jsonData.items[0].lineItemId);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has items information\", function () {",
+									"    jsonData.items.length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{cart-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cart-domain}}/v2/carts/{{cartId}}",
+							"host": [
+								"{{cart-domain}}"
+							],
+							"path": [
+								"v2",
+								"carts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{cart-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cart-domain}}/v2/carts/{{cartId}}/items/{{lineItemId}}",
+							"host": [
+								"{{cart-domain}}"
+							],
+							"path": [
+								"v2",
+								"carts",
+								"{{cartId}}",
+								"items",
+								"{{lineItemId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Promotion to cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{cart-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cart-domain}}/v2/carts/{{cartId}}/promos/test1",
+							"host": [
+								"{{cart-domain}}"
+							],
+							"path": [
+								"v2",
+								"carts",
+								"{{cartId}}",
+								"promos",
+								"test1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove promotion from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{cart-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cart-domain}}/v2/carts/{{cartId}}/promo/test1",
+							"host": [
+								"{{cart-domain}}"
+							],
+							"path": [
+								"v2",
+								"carts",
+								"{{cartId}}",
+								"promo",
+								"test1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluate Promotions for Items Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has item information\", function () {",
+									"    jsonData.items.length>0",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{offers-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "tenant-key",
+								"value": "{{tenant-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"items\": [\n        {\n            \"itemId\": {{itemId}},\n            \"priceList\": \"100000\",\n            \"quantity\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rtpe-domain}}/promo/evaluate-promotions",
+							"host": [
+								"{{rtpe-domain}}"
+							],
+							"path": [
+								"promo",
+								"evaluate-promotions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Checkout page",
+			"item": [
+				{
+					"name": "Checkout v2",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts page",
+			"item": [
+				{
+					"name": "Orders history",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Has orders information\", function () {",
+									"    jsonData.orders[0].length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "x-site-context",
+								"value": "{{x-site-context}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-order/orders/user?limit=10",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-order",
+								"orders",
+								"user"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Addresses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/data-customer/v1/addresses",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"data-customer",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/data-customer/v1/addresses",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"data-customer",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/data-customer/v1/addresses",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"data-customer",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/data-customer/v1/addresses",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"data-customer",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ancillary Pages",
+			"item": [
+				{
+					"name": "Contact us",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData.status).to.eql(200);",
+									"    pm.expect(jsonData.status_code).to.eql(200);",
+									"    pm.expect(jsonData.statusCode).to.eql(200);",
+									"});",
+									"pm.test(\"Page is Active\",function(){",
+									"    jsonData.data.page.isActive;",
+									"})",
+									"pm.test(\"Contains the components\",function(){",
+									"   jsonData.data.version[0].components.length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{\"account\":\"61a510fa37bb640009acf55e\",\"stage\":\"sandbox\",\"channel\":\"12\",\"domain\":\"https://uat01-apigw.lazurdesandbox.fabric.zone\",\"date\":\"2022-05-24T09:26:26.581Z\",\"site\":\"https://dev-fabric-lazurde.vercel.app\"}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-xpm/v2/page/live?channel={{channel}}&url=/home",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-xpm",
+								"v2",
+								"page",
+								"live"
+							],
+							"query": [
+								{
+									"key": "channel",
+									"value": "{{channel}}"
+								},
+								{
+									"key": "url",
+									"value": "/home"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return Policy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData.status).to.eql(200);",
+									"    pm.expect(jsonData.status_code).to.eql(200);",
+									"    pm.expect(jsonData.statusCode).to.eql(200);",
+									"});",
+									"pm.test(\"Page is Active\",function(){",
+									"    jsonData.data.page.isActive;",
+									"})",
+									"pm.test(\"Contains the components\",function(){",
+									"   jsonData.data.version[0].components.length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{\"account\":\"61a510fa37bb640009acf55e\",\"stage\":\"sandbox\",\"channel\":\"12\",\"domain\":\"https://uat01-apigw.lazurdesandbox.fabric.zone\",\"date\":\"2022-05-24T09:26:26.581Z\",\"site\":\"https://dev-fabric-lazurde.vercel.app\"}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-xpm/v2/page/live?channel={{channel}}&url=/home",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-xpm",
+								"v2",
+								"page",
+								"live"
+							],
+							"query": [
+								{
+									"key": "channel",
+									"value": "{{channel}}"
+								},
+								{
+									"key": "url",
+									"value": "/home"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Help centre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData.status).to.eql(200);",
+									"    pm.expect(jsonData.status_code).to.eql(200);",
+									"    pm.expect(jsonData.statusCode).to.eql(200);",
+									"});",
+									"pm.test(\"Page is Active\",function(){",
+									"    jsonData.data.page.isActive;",
+									"})",
+									"pm.test(\"Contains the components\",function(){",
+									"   jsonData.data.version[0].components.length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{\"account\":\"61a510fa37bb640009acf55e\",\"stage\":\"sandbox\",\"channel\":\"12\",\"domain\":\"https://uat01-apigw.lazurdesandbox.fabric.zone\",\"date\":\"2022-05-24T09:26:26.581Z\",\"site\":\"https://dev-fabric-lazurde.vercel.app\"}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-xpm/v2/page/live?channel={{channel}}&url=/help-centre",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-xpm",
+								"v2",
+								"page",
+								"live"
+							],
+							"query": [
+								{
+									"key": "channel",
+									"value": "{{channel}}"
+								},
+								{
+									"key": "url",
+									"value": "/help-centre"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Celebrity Choice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData.status).to.eql(200);",
+									"    pm.expect(jsonData.status_code).to.eql(200);",
+									"    pm.expect(jsonData.statusCode).to.eql(200);",
+									"});",
+									"pm.test(\"Page is Active\",function(){",
+									"    jsonData.data.page.isActive;",
+									"})",
+									"pm.test(\"Contains the components\",function(){",
+									"   jsonData.data.version[0].components.length>0",
+									"})",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-site-context",
+								"value": "{\"account\":\"61a510fa37bb640009acf55e\",\"stage\":\"sandbox\",\"channel\":\"12\",\"domain\":\"https://uat01-apigw.lazurdesandbox.fabric.zone\",\"date\":\"2022-05-24T09:26:26.581Z\",\"site\":\"https://dev-fabric-lazurde.vercel.app\"}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api-xpm/v2/page/live?channel={{channel}}&url=/celebrity-choice",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api-xpm",
+								"v2",
+								"page",
+								"live"
+							],
+							"query": [
+								{
+									"key": "channel",
+									"value": "{{channel}}"
+								},
+								{
+									"key": "url",
+									"value": "/celebrity-choice"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "items",
+			"value": ""
+		},
+		{
+			"key": "sku",
+			"value": ""
+		},
+		{
+			"key": "itemId",
+			"value": ""
+		},
+		{
+			"key": "orderPrice",
+			"value": ""
+		},
+		{
+			"key": "cartId",
+			"value": ""
+		},
+		{
+			"key": "lineItemId",
+			"value": ""
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		}
+	]
+}
